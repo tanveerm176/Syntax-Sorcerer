@@ -1,0 +1,313 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Container styles */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100%;
+}
+
+.container {
+    position: relative;
+    padding: 50px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 68vw;
+    background: #777ed4; /* Fallback for old browsers */
+    background: -webkit-linear-gradient(
+        to bottom,
+        #6b90e0,
+        #9977d4
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+        to bottom,
+        #6b90e0,
+        #9977d4
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    opacity: 0.95;
+}
+
+@media only screen and (max-width: 500px) {
+    .wrapper {
+        padding-top: 500px; 
+        padding-bottom: 100px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        width: 72vw;
+        padding: 20px;  
+    }
+}
+
+@media only screen and (max-height: 650px) and (min-width: 900px) {
+    .container {
+        width: 72vw;
+        padding: 20px;  
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .container {
+        width: 75vw;
+        padding: 30px;  
+    }
+}
+
+@media only screen and (max-height: 500px) {
+    .wrapper {
+        padding-top: 390px; 
+        padding-bottom: 50px;
+    }
+}
+
+@media only screen and (min-height: 501px) and (max-height: 620px) {
+    .wrapper {
+        padding-top: 360px; 
+        padding-bottom: 50px;
+    }
+}
+
+@media only screen and (min-height: 621px) and (max-height: 700px) {
+    .wrapper {
+        padding-top: 330px; 
+        padding-bottom: 50px;
+    }
+}
+
+@media only screen and (min-height: 701px) and (max-height: 800px) {
+    .wrapper {
+        padding-top: 300px; 
+        padding-bottom: 50px;
+    }
+}
+
+@media only screen and (min-height: 801px) and (max-height: 860px) {
+    .wrapper {
+        padding-top: 270px; 
+        padding-bottom: 50px;
+    }
+}
+
+@media only screen and (min-height: 861px) and (max-height: 1000px) {
+    .wrapper {
+        padding-top: 200px; 
+        padding-bottom: 50px;
+    }
+}
+
+/* Chatbox styles */
+.chatbox {
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 10px;
+    height: 50vh;
+    overflow-y: auto;
+    background: #473b8b;
+    opacity: 0.6;
+}
+
+/* Heading styles */
+.title {
+    color: white;
+    font-size: 400%;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    line-height: 110%;
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+}
+
+@media only screen and (max-width: 900px) {
+    .title {
+        font-size: 300%;
+    }
+}
+
+/* Messages list styles */
+.messages {
+    font-family: "Poppins", sans-serif;
+    color: white;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Message item styles */
+.message {
+    align-items: flex-start;
+    margin-bottom: 10px;   
+}
+
+.message .sender {
+    font-weight: bold;
+    margin-bottom: -15px;
+}
+
+.message .content {
+    text-align: left;
+    overflow-wrap: anywhere; /* Break long words if they exceed the container */
+}
+
+/* User input styles */
+.userInput {
+    font-family: "Poppins", sans-serif;
+    width: calc(100% - 22px);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-style: none;
+    font-size: medium;
+    overflow-y: auto;
+    background: #473b8b;
+    color: white;
+    opacity: 0.6;
+}
+
+/* Button styles */
+.submitButton {
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    font-size: large;
+    padding: 10px 20px;
+    border: none;
+    background: #4f55a8;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .submitButton {
+        font-size: medium;
+    }
+}
+
+.codebaseButton {
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: medium;
+    border-style: none;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border-radius: 4px;
+    background: #4f55a8;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.submitButton:disabled, .codebaseButton:disabled {
+    background-color: #8386a8;
+    cursor: not-allowed;
+}
+
+.submitButton:disabled:hover, .codebaseButton:disabled:hover {
+    background-color: #8386a8; /* Hover color for disabled state */
+}
+
+.submitButton:not(:disabled):hover, .codebaseButton:not(:disabled):hover {
+    background-color: #62aced; /* Hover color for enabled state */
+}
+
+/* Flexbox styles */
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+@media only screen and (max-width: 406px) {
+    .query-button, .codebase-button {
+        margin-bottom: 10px;
+    }
+}
+
+/* Input styles */
+.input {
+    font-family: "Poppins", sans-serif;
+    font-size: medium;
+    border-style: none;
+    width: calc(100% - 22px);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: #473b8b;
+    color: white;
+    opacity: 0.6;
+}
+
+/* Placeholder styles */
+.input::placeholder {
+    opacity: 0.8;
+    color: #eae4fe;
+}
+
+.userInput::placeholder {
+    opacity: 0.8;
+    color: #eae4fe;
+}
+
+/* Light animation for title */
+@keyframes lights {
+    0% {
+        color: hsl(230, 46%, 85%);
+        text-shadow:
+            0 0 1em hsla(320, 100%, 50%, 0.2),
+            0 0 0.125em hsla(320, 100%, 60%, 0.3),
+            -1em -0.125em 0.5em hsla(40, 100%, 60%, 0),
+            1em 0.125em 0.5em hsla(200, 100%, 60%, 0);
+    }
+
+    30% {
+        color: hsl(231, 100%, 92%);
+        text-shadow:
+            0 0 1em hsla(320, 100%, 50%, 0.7),
+            0 0 0.125em hsla(320, 100%, 60%, 0.7),
+            -0.5em -0.125em 0.25em hsla(40, 100%, 60%, 0.2),
+            0.5em 0.125em 0.25em hsla(200, 100%, 60%, 0.4);
+    }
+
+    40% {
+        color: hsl(0, 0%, 100%);
+        text-shadow:
+            0 0 1em hsla(283, 100%, 50%, 0.7),
+            0 0 0.125em hsla(320, 100%, 90%, 0.7),
+            -0.25em -0.125em 0.125em hsla(40, 100%, 60%, 0.2),
+            0.25em 0.125em 0.125em hsla(200, 100%, 60%, 0.4);
+    }
+
+    70% {
+        color: hsl(227, 70%, 94%);
+        text-shadow:
+            0 0 1em hsla(297, 100%, 50%, 0.7),
+            0 0 0.125em hsla(214, 100%, 85%, 0.88),
+            0.5em -0.125em 0.25em hsla(40, 100%, 60%, 0.2),
+            -0.5em 0.125em 0.25em hsla(200, 100%, 60%, 0.4);
+    }
+
+    100% {
+        color: hsl(232, 49%, 85%);
+        text-shadow:
+            0 0 1em hsla(320, 100%, 50%, 0.2),
+            0 0 0.125em hsla(320, 100%, 60%, 0.3),
+            1em -0.125em 0.5em hsla(40, 100%, 60%, 0),
+            -1em 0.125em 0.5em hsla(200, 100%, 60%, 0);
+    }
+}
+
+.title {
+    animation: lights 2s 750ms linear infinite;
+}

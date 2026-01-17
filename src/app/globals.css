@@ -1,0 +1,35 @@
+@media
+only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5){
+
+  html,
+  body {
+    width:100%;
+    overflow-x:hidden;
+  }
+
+}
+
+html {
+  background: #C6CEFF;  /* fallback for old browsers */ 
+  background: -webkit-linear-gradient(to right, #9bcbff, #C6CEFF);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #9bcbff, #C6CEFF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow-x: hidden; 
+  opacity: 1;
+  background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #C6CEFF 50px ), repeating-linear-gradient( #9d84df55, #b8b2f7 ); 
+  background-size: cover; 
+}
+
+.swal2-title, .swal2-html-container, .swal2-html-container {
+  font-family:'Poppins', sans-serif;
+}
