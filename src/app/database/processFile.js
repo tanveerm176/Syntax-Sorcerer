@@ -1,28 +1,31 @@
-import { extractCodeElements } from './extractCodeBlocks';
-import { processAndUpdateDictionary } from './embeddingService';
-import { pinecone } from '../config/pinecone/pineconeInit';
+import { parseCodeFile } from "@/lib/codeParser";
+import { pinecone } from "../config/pinecone/pineconeInit";
+import { processAndUpdateDictionary } from "./embeddingService";
 
-// Main function to process the file and generate tokens
+/**
+ * Process a JavaScript file: parse, generate embeddings, and store in Pinecone
+ *
+ * @param {string} filePath - Absolute path to the JavaScript file to process
+ * @throws {Error} If parsing, embedding generation, or Pinecone operations fail
+ */
 export async function processFile(filePath) {
   try {
-    console.log(filePath);
+    console.log(`Processing file: ${filePath}`);
 
-    // Extract code blocks
-    const codeBlocks = extractCodeElements(filePath);
+    // Extract code blocks using Tree-Sitter AST parser
+    const codeBlocks = await parseCodeFile(filePath);
 
-    // Generate embeddings
+    // Generate embeddings for extracted code segments
     const embeddedCodeBlocks = await processAndUpdateDictionary(codeBlocks);
-    console.log(embeddedCodeBlocks);
-    // writeToCsv(codeBlocks, './output.csv');
+    console.log(
+      `Generated ${embeddedCodeBlocks.functions.length} function embeddings and ${embeddedCodeBlocks.classes.length} class embeddings`,
+    );
 
-    // Upsert the embeddings into Pinecone
+    // Upsert the embeddings into Pinecone vector database
     await pinecone.upsertEmbeddings(embeddedCodeBlocks);
-    console.log('Embeddings upserted to Pinecone.');
-
-    // Optionally check the index stats
-    // await pinecone.checkIndex();
-
+    console.log("✓ Embeddings successfully upserted to Pinecone");
   } catch (error) {
-    console.error('Error processing file:', error);
+    console.error(`Error processing file ${filePath}:`, error.message);
+    throw error;
   }
 }
