@@ -240,7 +240,7 @@ export default function QueryControls() {
         className={styles.submitButton}
         onClick={sendMessage}
       >
-        Enter
+        Ask Chatbot
       </button>
       {/* Button to perform semantic search of the codebase via Pinecone */}
       <button

@@ -59,6 +59,8 @@ export default function CodebaseControls() {
         heightAuto: false,
         confirmButtonColor: "#8d77d4",
       });
+      // Dispatch event to notify other components of codebase change
+      window.dispatchEvent(new Event("codebaseDownloaded"));
     }
   }
 
@@ -98,6 +100,8 @@ export default function CodebaseControls() {
         heightAuto: false,
         confirmButtonColor: "#8d77d4",
       });
+      // Dispatch event to notify other components of codebase change
+      window.dispatchEvent(new Event("codebaseDeleted"));
     }
   }
 

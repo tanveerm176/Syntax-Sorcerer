@@ -4,9 +4,11 @@
 /* Container styles */
 .wrapper {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: flex-start;
     min-height: 100%;
+    gap: 20px;
+    padding: 20px;
 }
 
 .container {
@@ -106,8 +108,7 @@
     margin-bottom: 10px;
     height: 50vh;
     overflow-y: auto;
-    background: #473b8b;
-    opacity: 0.6;
+    background: rgba(71, 59, 139, 0.85);
 }
 
 /* Heading styles */
@@ -129,7 +130,7 @@
 /* Messages list styles */
 .messages {
     font-family: "Poppins", sans-serif;
-    color: white;
+    color: #ffffff;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -144,11 +145,13 @@
 .message .sender {
     font-weight: bold;
     margin-bottom: -15px;
+    color: #ffffff;
 }
 
 .message .content {
     text-align: left;
     overflow-wrap: anywhere; /* Break long words if they exceed the container */
+    color: #ffffff;
 }
 
 /* User input styles */
@@ -161,9 +164,8 @@
     border-style: none;
     font-size: medium;
     overflow-y: auto;
-    background: #473b8b;
-    color: white;
-    opacity: 0.6;
+    background: rgba(71, 59, 139, 0.85);
+    color: #ffffff;
 }
 
 /* Button styles */
@@ -244,9 +246,8 @@
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 10px;
-    background: #473b8b;
-    color: white;
-    opacity: 0.6;
+    background: rgba(71, 59, 139, 0.85);
+    color: #ffffff;
 }
 
 /* Placeholder styles */
@@ -311,3 +312,196 @@
 .title {
     animation: lights 2s 750ms linear infinite;
 }
+
+/* Codebase Status Indicator Styles */
+.statusIndicator {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.statusBadge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.statusBadge.active {
+    background-color: #4ade80;
+    color: #1a3a1a;
+}
+
+.statusBadge.inactive {
+    background-color: #a3a3a3;
+    color: #ffffff;
+}
+
+.statusBadge.loading {
+    background-color: #818cf8;
+    color: #ffffff;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.statusDot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+    box-shadow: 0 0 6px currentColor;
+}
+
+.statusBadge.active .statusDot {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.statusText {
+    font-family: 'Poppins', sans-serif;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Side Panel Styles */
+.sidePanel {
+    width: 280px;
+    background: rgba(107, 144, 224, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    flex-shrink: 0;
+}
+
+.sidePanelHeader {
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 15px 15px 0 0;
+}
+
+.sidePanelTitle {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sidePanelContent {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 0;
+}
+
+.tree {
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+
+.treeNode {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: default;
+    transition: background-color 0.2s ease;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+
+.treeNode:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.treeIcon {
+    flex-shrink: 0;
+    font-size: 14px;
+}
+
+.treeName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: "Poppins", sans-serif;
+}
+
+.loadingText {
+    padding: 12px;
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+    opacity: 0.8;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.emptyStateIcon {
+    font-size: 48px;
+    opacity: 0.6;
+}
+
+.emptyStateText {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+}
+
+.emptyStateHint {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Scrollbar styling for side panel */
+.sidePanelContent::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidePanelContent::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.sidePanelContent::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.sidePanelContent::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
