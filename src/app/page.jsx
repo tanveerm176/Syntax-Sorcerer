@@ -3,6 +3,7 @@ import Chatbot from "@/components/Chatbot";
 import CodebaseControls from "@/components/CodebaseControls";
 import CodebaseStatus from "@/components/CodebaseStatus";
 import QueryControls from "@/components/QueryControls";
+import SidePanel from "@/components/SidePanel";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "../app/styles/Chatbot.module.css";
@@ -45,7 +46,9 @@ export default function Home() {
 
   return (
     <div className={styles.wrapper}>
-      {/* Main content container */}
+      {/* Side panel with project structure */}
+      <SidePanel />
+
       {/* Main content container */}
       <div className={styles.container}>
         <div className={styles.flex}>
