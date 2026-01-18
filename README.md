@@ -1,29 +1,128 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Syntax-Sorcerer
 
-## Getting Started
+An AI-powered RAG (Retrieval-Augmented Generation) web app that lets you chat with your JavaScript codebase using OpenAI's GPT and vector embeddings.
 
-First, run `npm install`
+## Features
 
-Then, run `npm run dev`
+- 🤖 **AI Code Analysis** - Chat with ChatGPT about your code
+- 🔍 **Semantic Search** - Uses cosine similarity to find relevant code segments
+- 📦 **Codebase Upload** - Upload JavaScript projects via .zip file URLs
+- 💾 **Session Persistence** - Conversation history cached in Redis
+- 🎯 **RAG Pipeline** - Retrieves relevant code context before generating responses
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Frontend**: Next.js, React, TailwindCSS
+- **Backend**: Next.js API Routes
+- **LLM**: OpenAI GPT-4
+- **Vector DB**: Pinecone
+- **Cache**: Redis
+- **Code Parsing**: Tree-sitter
+
+## Prerequisites
+
+- Node.js 16+ 
+- npm or yarn
+- OpenAI API key (with billing enabled)
+- Pinecone API key
+- Redis instance (Redis Cloud recommended)
+
+## Setup
+
+1. **Clone or download** this repository
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Create `.env.local`** with your API keys:
+   ```env
+   OPENAI_API_KEY=sk-proj-...
+   PINECONE_API_KEY=pcsk_...
+   REDIS_HOST=your-redis-host.com
+   REDIS_PORT=10420
+   REDIS_PASSWORD=your-password
+   NEXT_PUBLIC_URL=http://localhost:3000
+   ```
+
+4. **Run development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open** [http://localhost:3000](http://localhost:3000) in your browser
 
 ## How to Use
-Each user may upload one codebase to the app's local storage at a time by pasting a link in the topmost input box. This link must be a link to download a .zip file and must be a [valid URL](https://dev.w3.org/html5/spec-LC/urls.html). An existing codebase may be removed at any time during the user session in order to upload another one. Currently, only JavaScript files are supported.\
-To send a regular message to the ChatGPT interface, press 'Enter.' Pressing 'Query codebase' will process your prompt, use cosine similarity to find the three most relevant code segments in your codebase, and display an answer to your prompt that considers the files containing these segments.
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+### Upload a Codebase
+1. Paste a **direct link to a .zip file** in the top input box
+2. The app will download, extract, and index your JavaScript files
+3. Embeddings are generated and stored in Pinecone
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Chat with Your Code
+- **Regular messages**: Press `Enter` to chat with ChatGPT
+- **Query codebase**: Click `Query codebase` button to:
+  - Find the 3 most relevant code segments using cosine similarity
+  - Include those segments in the ChatGPT context
+  - Get an informed answer about your code
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Supported Files
+- Currently supports **JavaScript (.js) files only**
+- One codebase per session (upload a new one to replace the current)
 
-## Deploy on Vercel
+## Environment Variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Variable | Description |
+|----------|-------------|
+| `OPENAI_API_KEY` | OpenAI API key for ChatGPT access |
+| `PINECONE_API_KEY` | Pinecone vector database API key |
+| `REDIS_HOST` | Redis host URL |
+| `REDIS_PORT` | Redis port number |
+| `REDIS_PASSWORD` | Redis password |
+| `NEXT_PUBLIC_URL` | Frontend URL (for API calls) |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── chat/route.js           # Chat endpoint
+│   ├── config/                 # Configuration files
+│   ├── database/               # Database & embedding services
+│   ├── codebase/route.js       # Codebase upload/query endpoint
+│   └── page.js                 # Main page
+├── components/                 # React components
+└── utils/                      # Utility functions
+```
+
+## API Endpoints
+
+- `POST /chat` - Send a message to ChatGPT
+- `POST /codebase` - Upload a codebase
+- `GET /codebase` - Get current codebase info
+- `DELETE /codebase` - Remove current codebase
+- `GET /config/seed` - Seed database configuration
+
+## Limitations
+
+- Only JavaScript files are indexed
+- One codebase per session
+- Requires active OpenAI billing
+- Tree-sitter parsing limited to JavaScript syntax
+
+## Future Enhancements
+
+- Support for multiple programming languages
+- Multi-codebase session support
+- Custom system prompts
+- Code summary generation
+- Performance optimizations
+
+## License
+
+MIT
+
+## Support
+
+For issues or questions, check the [OpenAI Docs](https://platform.openai.com/docs) or [Pinecone Docs](https://docs.pinecone.io).
