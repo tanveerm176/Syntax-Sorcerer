@@ -311,3 +311,65 @@
 .title {
     animation: lights 2s 750ms linear infinite;
 }
+
+/* Codebase Status Indicator Styles */
+.statusIndicator {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.statusBadge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.statusBadge.active {
+    background-color: #4ade80;
+    color: #1a3a1a;
+}
+
+.statusBadge.inactive {
+    background-color: #a3a3a3;
+    color: #ffffff;
+}
+
+.statusBadge.loading {
+    background-color: #818cf8;
+    color: #ffffff;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.statusDot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+    box-shadow: 0 0 6px currentColor;
+}
+
+.statusBadge.active .statusDot {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.statusText {
+    font-family: 'Poppins', sans-serif;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
