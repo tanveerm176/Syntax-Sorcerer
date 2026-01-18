@@ -16,18 +16,22 @@ import { CodeParserTypes } from "./types";
  * Main parser function - parses a JavaScript file and extracts code structures
  *
  * @param {string} filepath - Absolute path to the JavaScript file
- * @returns {Promise<{functions: Array, classes: Array, relativeFilePath: string}>}
+ * @returns {Promise<{functions: Array, classes: Array, comments: Array, variables: Array, relativeFilePath: string}>}
  *          Returns an object with:
  *          - functions: Array of function objects with {code, function_name, filepath}
  *          - classes: Array of class objects with {code, class_name, filepath}
+ *          - comments: Array of comment objects with {code, comment_name, filepath}
+ *          - variables: Array of variable objects with {code, variable_name, filepath}
  *          - relativeFilePath: Relative path from cwd to the file
  *
  * @throws {Error} If file cannot be read or parsed
  *
  * @example
  * const parser = await parseCodeFile('/absolute/path/to/file.js');
- * console.log(parser.functions); // [{code: '...', function_name: 'myFunc', filepath: 'src/file.js'}]
- */
+ * console.log(parser.functions);  // [{code: '...', function_name: 'myFunc', filepath: 'src/file.js'}]
+/*  * console.log(parser.comments);   // [{code: '/** JSDoc */ //', comment_name: 'comment_1', filepath: 'src/file.js'}]
+//  * console.log(parser.variables);  // [{code: 'const x = 10', variable_name: 'x', filepath: 'src/file.js'}]
+//   */ */
 export async function parseCodeFile(filepath) {
   try {
     // Use Tree-Sitter for parsing

@@ -71,7 +71,10 @@ export async function processFile(filePath) {
     // Step 2: Generate embeddings for extracted code segments
     const embeddedCodeBlocks = await processAndUpdateDictionary(codeBlocks);
     console.log(
-      `Generated ${embeddedCodeBlocks.functions.length} function embeddings and ${embeddedCodeBlocks.classes.length} class embeddings`,
+      `Generated ${embeddedCodeBlocks.functions.length} function embeddings, ` +
+        `${embeddedCodeBlocks.classes.length} class embeddings, ` +
+        `${embeddedCodeBlocks.comments?.length || 0} comment embeddings, and ` +
+        `${embeddedCodeBlocks.variables?.length || 0} variable embeddings`,
     );
 
     // Step 3: Upsert the embeddings into Pinecone vector database

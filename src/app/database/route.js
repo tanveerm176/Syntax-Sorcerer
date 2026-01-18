@@ -114,7 +114,7 @@ export async function POST(request) {
     }
 
     // Build list of relevant files with formatting
-    let answer = "Here are the most relevant files to your query:\n\n";
+    let answer = "Here are the most relevant files/code snippets to your query:\n\n";
 
     // Format results for each matched code element as a numbered list
     for (let i = 0; i < files.matches.length; i++) {
