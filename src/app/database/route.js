@@ -104,38 +104,34 @@ export async function POST(request) {
     // Search Pinecone for semantically similar code elements
     const files = await pinecone.similaritySearch(embed);
 
-    // Build human-readable response describing the search results
-    let answer = "The most relevant code chunks to your query are ";
-
     // Array to store actual code content from matched files
     const filesToSend = [];
 
     // Handle case where no relevant code is found
     if (files.matches.length == 0) {
-      answer = "No files relevant to your query could be found.";
+      const answer = "No files relevant to your query could be found.";
+      return NextResponse.json({ text: answer, files: filesToSend });
     }
 
-    // Format results for each matched code element
+    // Build list of relevant files with formatting
+    let answer = "Here are the most relevant files to your query:\n\n";
+
+    // Format results for each matched code element as a numbered list
     for (let i = 0; i < files.matches.length; i++) {
       // Calculate relative file path for display
       const pathOffset =
         files.matches[i].metadata.filepath.indexOf(codebasePath) + 1;
+      const relativePath = files.matches[i].metadata.filepath.substring(
+        codebasePath.length + pathOffset,
+      );
 
-      // Build descriptive text for this match
-      if (files.matches.length == 1) {
-        // Single result case
-        answer = `The most relevant file to your query is the ${files.matches[i].metadata.type} \`\`\`${files.matches[i].id}\`\`\` (from \`\`\`${files.matches[i].metadata.filepath.substring(codebasePath.length + pathOffset)}\`\`\`) with a score of ${files.matches[i].score}.`;
-      } else if (i == files.matches.length - 1) {
-        // Last result in multiple results - use "and"
-        answer = answer.concat(
-          `and the ${files.matches[i].metadata.type} \`\`\`${files.matches[i].id}\`\`\` (from \`\`\`${files.matches[i].metadata.filepath.substring(codebasePath.length + pathOffset)}\`\`\`) with a score of ${files.matches[i].score}.`,
-        );
-      } else {
-        // Middle results - use comma
-        answer = answer.concat(
-          `the ${files.matches[i].metadata.type} \`\`\`${files.matches[i].id}\`\`\` (from \`\`\`${files.matches[i].metadata.filepath.substring(codebasePath.length + pathOffset)}\`\`\`) with a score of ${files.matches[i].score}, `,
-        );
-      }
+      // Convert similarity score from decimal (0-1) to percentage (0-100%)
+      const scorePercentage = Math.round(files.matches[i].score * 100);
+
+      // Add list item with filename, type, path, and match percentage
+      answer += `${i + 1}. **${files.matches[i].id}** (${files.matches[i].metadata.type})\n`;
+      answer += `   📁 ${relativePath}\n`;
+      answer += `   🎯 ${scorePercentage}% match\n\n`;
 
       // Read the actual source code from the file
       const code = await readCodeFromFile(files.matches[i].metadata.filepath);
