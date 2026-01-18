@@ -108,8 +108,7 @@
     margin-bottom: 10px;
     height: 50vh;
     overflow-y: auto;
-    background: #473b8b;
-    opacity: 0.6;
+    background: rgba(71, 59, 139, 0.85);
 }
 
 /* Heading styles */
@@ -131,7 +130,7 @@
 /* Messages list styles */
 .messages {
     font-family: "Poppins", sans-serif;
-    color: white;
+    color: #ffffff;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -146,11 +145,13 @@
 .message .sender {
     font-weight: bold;
     margin-bottom: -15px;
+    color: #ffffff;
 }
 
 .message .content {
     text-align: left;
     overflow-wrap: anywhere; /* Break long words if they exceed the container */
+    color: #ffffff;
 }
 
 /* User input styles */
@@ -163,9 +164,8 @@
     border-style: none;
     font-size: medium;
     overflow-y: auto;
-    background: #473b8b;
-    color: white;
-    opacity: 0.6;
+    background: rgba(71, 59, 139, 0.85);
+    color: #ffffff;
 }
 
 /* Button styles */
@@ -246,9 +246,8 @@
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 10px;
-    background: #473b8b;
-    color: white;
-    opacity: 0.6;
+    background: rgba(71, 59, 139, 0.85);
+    color: #ffffff;
 }
 
 /* Placeholder styles */
@@ -412,7 +411,7 @@
 }
 
 .tree {
-    font-size: 13px;
+    font-size: 16px;
     font-family: "Poppins", sans-serif;
     font-weight: 500;
 }
@@ -450,7 +449,7 @@
 .loadingText {
     padding: 12px;
     color: #ffffff;
-    font-size: 13px;
+    font-size: 16px;
     text-align: center;
     opacity: 0.8;
     font-family: "Poppins", sans-serif;
