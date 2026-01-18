@@ -45,23 +45,27 @@ export async function generateEmbeddings(text) {
 }
 
 /**
- * Processes a collection of extracted code (functions and classes) to add embeddings
- * Iterates through all functions and classes, generating embeddings for each
+ * Processes a collection of extracted code (functions, classes, comments, and variables) to add embeddings
+ * Iterates through all code elements, generating embeddings for each
  *
  * @async
  * @param {Object} dict - Dictionary containing extracted code blocks
  * @param {Array} dict.functions - Array of function objects with {code, function_name, filepath}
  * @param {Array} dict.classes - Array of class objects with {code, class_name, filepath}
- * @returns {Promise<Object>} The same dictionary with added embedding field on each function and class
+ * @param {Array} dict.comments - Array of comment objects with {code, comment_name, filepath}
+ * @param {Array} dict.variables - Array of variable objects with {code, variable_name, filepath}
+ * @returns {Promise<Object>} The same dictionary with added embedding field on each element
  *
  * @example
  * const codeDict = {
  *   functions: [{code: 'function add(...) {...}', function_name: 'add', filepath: 'utils.js'}],
- *   classes: []
- * };
- * const withEmbeddings = await processAndUpdateDictionary(codeDict);
- * // Returns: {functions: [{code: '...', function_name: 'add', filepath: '...', embedding: [...]}], classes: []}
- */
+ *   classes: [{code: 'class Parser {...}', class_name: 'Parser', filepath: 'parser.js'}],
+ *   comments: [{code: '/** Parses input *///', comment_name: 'comment_1', filepath: 'parser.js'}],
+//  *   variables: [{code: 'const DEBUG = true', variable_name: 'DEBUG', filepath: 'config.js'}]
+//  * };
+//  * const withEmbeddings = await processAndUpdateDictionary(codeDict);
+//  * // Returns: {functions: [...with embedding], classes: [...with embedding], comments: [...with embedding], variables: [...with embedding]}
+//  */
 export async function processAndUpdateDictionary(dict) {
   // Generate embeddings for all extracted functions
   for (const func of dict.functions) {
@@ -76,6 +80,26 @@ export async function processAndUpdateDictionary(dict) {
     const embedding = await generateEmbeddings(cls.code);
     if (embedding) {
       cls.embedding = embedding;
+    }
+  }
+
+  // Generate embeddings for all extracted comments
+  if (dict.comments && Array.isArray(dict.comments)) {
+    for (const comment of dict.comments) {
+      const embedding = await generateEmbeddings(comment.code);
+      if (embedding) {
+        comment.embedding = embedding;
+      }
+    }
+  }
+
+  // Generate embeddings for all extracted variables
+  if (dict.variables && Array.isArray(dict.variables)) {
+    for (const variable of dict.variables) {
+      const embedding = await generateEmbeddings(variable.code);
+      if (embedding) {
+        variable.embedding = embedding;
+      }
     }
   }
 

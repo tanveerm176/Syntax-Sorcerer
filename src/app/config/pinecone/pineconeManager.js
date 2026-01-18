@@ -130,7 +130,7 @@ export class PineconeManager {
    * Each code element becomes a vector in the specified namespace.
    *
    * Payload structure for each element:
-   * - id: function/class name (used for retrieval)
+   * - id: function/class/comment/variable name (used for retrieval)
    * - values: 1536-dimensional embedding vector
    * - metadata: {filepath, type} for filtering and context
    *
@@ -143,6 +143,10 @@ export class PineconeManager {
    *                                {code, function_name, filepath, embedding}
    * @param {Array} data.classes - Array of class objects with:
    *                              {code, class_name, filepath, embedding}
+   * @param {Array} data.comments - Array of comment objects with:
+   *                               {code, comment_name, filepath, embedding}
+   * @param {Array} data.variables - Array of variable objects with:
+   *                                {code, variable_name, filepath, embedding}
    * @param {string} [namespace] - Pinecone namespace (defaults to user session ID)
    * @returns {Promise<void>} Resolves when all embeddings are stored
    * @throws {Error} If upsert operation fails
@@ -154,7 +158,21 @@ export class PineconeManager {
    *     filepath: 'src/auth.js',
    *     embedding: [0.123, -0.456, ...] // 1536 values
    *   }],
-   *   classes: []
+   *   classes: [{
+   *     class_name: 'Parser',
+   *     filepath: 'src/parser.js',
+   *     embedding: [0.234, -0.567, ...] // 1536 values
+   *   }],
+   *   comments: [{
+   *     comment_name: 'comment_1',
+   *     filepath: 'src/parser.js',
+   *     embedding: [0.345, -0.678, ...] // 1536 values
+   *   }],
+   *   variables: [{
+   *     variable_name: 'DEBUG',
+   *     filepath: 'src/config.js',
+   *     embedding: [0.456, -0.789, ...] // 1536 values
+   *   }]
    * };
    * await manager.upsertEmbeddings(codeData);
    */
@@ -193,11 +211,45 @@ export class PineconeManager {
       }
     });
 
+    // Convert comments to Pinecone vectors
+    if (data.comments && Array.isArray(data.comments)) {
+      data.comments.forEach((comment) => {
+        if (comment.embedding && Array.isArray(comment.embedding)) {
+          upsertPayload.push({
+            id: comment.comment_name, // Use comment identifier as unique ID
+            values: comment.embedding, // 1536-dimensional embedding vector
+            metadata: {
+              filepath: comment.filepath, // Path for retrieval
+              type: "comment", // Element type for search results
+            },
+          });
+        }
+      });
+    }
+
+    // Convert variables to Pinecone vectors
+    if (data.variables && Array.isArray(data.variables)) {
+      data.variables.forEach((variable) => {
+        if (variable.embedding && Array.isArray(variable.embedding)) {
+          upsertPayload.push({
+            id: variable.variable_name, // Use variable name as unique ID
+            values: variable.embedding, // 1536-dimensional embedding vector
+            metadata: {
+              filepath: variable.filepath, // Path for retrieval
+              type: "variable", // Element type for search results
+            },
+          });
+        }
+      });
+    }
+
     // Upload all vectors to Pinecone in the specified namespace
     await this.index.namespace(namespace).upsert(upsertPayload);
     // Wait for consistency after upsert
     await this.delay(3000);
-    console.log("Embeddings upserted successfully.");
+    console.log(
+      `Embeddings upserted successfully. Total vectors: ${upsertPayload.length}`,
+    );
   }
 
   /**

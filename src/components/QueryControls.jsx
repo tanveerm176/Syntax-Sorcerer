@@ -181,7 +181,7 @@ export default function QueryControls() {
   /**
    * Initiates a semantic search of the codebase using Pinecone
    * Embeds user query and searches for relevant code snippets
-   * Displays results and passes them to ChatGPT for contextual analysis
+   * Displays formatted search results with match percentages
    * Disables buttons during request to prevent duplicate submissions
    *
    * @async
@@ -204,11 +204,11 @@ export default function QueryControls() {
     queryButton.disabled = false;
   }
 
-  // Fetch a response from the Pinecone API, generate an embedding from the user input
   /**
    * Queries Pinecone vector database for semantically similar code snippets
    * Embeds the user query using OpenAI's embedding model
-   * Returns most relevant code chunks along with ChatGPT analysis
+   * Returns most relevant code chunks with match percentages
+   * Displays formatted list of results without ChatGPT analysis
    *
    * @async
    * @param {string} userInput - The user's query to search the codebase with
@@ -226,10 +226,8 @@ export default function QueryControls() {
     if (botMessage.error) {
       appendMessage("Error", botMessage.error);
     } else {
-      // Display the initial analysis from ChatGPT
-      appendMessage("Assistant", botMessage.text);
-      // Follow up with the actual code snippets that were retrieved
-      sendFiles(botMessage.files, userInput);
+      // Display the search results list with match percentages
+      appendMessage("Search Results", botMessage.text);
     }
   }
 
