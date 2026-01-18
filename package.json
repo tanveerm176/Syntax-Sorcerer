@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@pinecone-database/pinecone": "^3.0.2",
-    "@sweetalert2/theme-borderless": "^5.0.18",
     "adm-zip": "^0.5.16",
     "axios": "^1.7.7",
     "csv-writer": "^1.6.0",
